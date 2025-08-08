@@ -1,13 +1,20 @@
-# Use a lightweight web server
-FROM nginx:alpine
+FROM node:18-alpine AS build
 
-# Copy build output to Nginx’s public directory
-COPY ./dist /usr/share/nginx/html
+WORKDIR /app
 
-# Remove default config and add your own if needed
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY package*.json ./
+RUN npm install
 
-# Expose port 80
-EXPOSE 80
+COPY . .
 
-CMD ["nginx", "-g", "daemon off;"]
+RUN npm run build
+
+FROM node:18-alpine
+
+RUN npm install -g serve
+
+COPY --from=build /app/build ./build
+
+EXPOSE 5173
+
+CMD ["serve", "-s", "build", "-1", "5173"]
