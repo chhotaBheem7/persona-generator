@@ -1,0 +1,6 @@
+{
+  "name": "Ajyle AI - Persona Generator AI ",
+  "description": "Upload documents, sheets, images, and text about your target audience. This application uses the Gemini API to analyze the files and generate a detailed user persona, complete with an AI-generated image.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
